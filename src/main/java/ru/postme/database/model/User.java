@@ -69,4 +69,7 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+    public String toString() {
+        return id + " " +nickname + " " +firstName + " " +lastName + " " +email + " " + password;
+    }
 }
