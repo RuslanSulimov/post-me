@@ -8,7 +8,7 @@ public interface UserDao {
     Long createUser(User user);
     void updateUser(User user);
     User getUserById(Long id);
-    void  deleteUser(Long id);
-    List<User> getUserByNickname(String nickname);
+    void deleteUser(Long id);
+    User getUserByNickname(String nickname);
     List<User> getAllUsers();
 }

@@ -1,78 +1,77 @@
 package ru.postme.database.dao.impl;
 
 import jakarta.persistence.Query;
-import jakarta.persistence.TypedQuery;
-import jakarta.persistence.criteria.Root;
-import ru.postme.database.dao.UserDao;
-import ru.postme.database.model.User;
-import ru.postme.database.hibernate.HibernateUtil;
 import org.hibernate.Session;
+import ru.postme.database.dao.PostDao;
+import ru.postme.database.hibernate.HibernateUtil;
+import ru.postme.database.model.Post;
+import ru.postme.database.model.User;
 
 import java.util.List;
 
-public class UserDaoImpl implements UserDao {
+public class PostDaoImpl implements PostDao {
+
     @Override
-    public Long createUser(User user) {
+    public Long createPost(Post post) {
         Session session = HibernateUtil.openSession();
         session.beginTransaction();
-        Long userId = (Long) session.save(user);
+        Long postId = (Long) session.save(post);
         session.getTransaction().commit();
         session.close();
-        return userId;
+        return postId;
     }
 
     @Override
-    public void updateUser(User user) {
+    public void updatePost(Post post) {
         Session session = HibernateUtil.openSession();
         session.beginTransaction();
-        session.update(user);
-        session.getTransaction().commit();
-        session.close();
-    }
-
-    @Override
-    public User getUserById(Long id) {
-        Session session = HibernateUtil.openSession();
-        session.beginTransaction();
-        User userById = session.get(User.class, id);
-        session.getTransaction().commit();
-        session.close();
-        return userById;
-    }
-
-    @Override
-    public void deleteUser(Long id) {
-        Session session = HibernateUtil.openSession();
-        session.beginTransaction();
-        User deletingUser = (User) session.get(User.class, id);
-        session.remove(deletingUser);
+        session.update(post);
         session.getTransaction().commit();
         session.close();
     }
 
     @Override
-    public User getUserByNickname(String nickname) {
+    public Post getPostById(Long id) {
         Session session = HibernateUtil.openSession();
         session.beginTransaction();
-        String hql = "SELECT u FROM User u WHERE nickname = :userNickname";
+        Post postById = session.get(Post.class, id);
+        session.getTransaction().commit();
+        session.close();
+        return postById;
+    }
+
+    @Override
+    public void deletePost(Long id) {
+        Session session = HibernateUtil.openSession();
+        session.beginTransaction();
+        Post deletingPost = (Post) session.get(Post.class, id);
+        session.remove(deletingPost);
+        session.getTransaction().commit();
+        session.close();
+    }
+
+    @Override
+    public List<Post> getAllPosts() {
+        Session session = HibernateUtil.openSession();
+        session.beginTransaction();
+        String hql = "SELECT u FROM Post u";
+        Query query = session.createQuery(hql);
+        List<Post> results = query.getResultList();
+        session.getTransaction().commit();
+        session.close();
+        return results;
+    }
+    @Override
+    public List<Post> getAllPostsByNickname(String nickname) {
+        Session session = HibernateUtil.openSession();
+        session.beginTransaction();
+        String hql = "FROM Post p WHERE p.user.nickname = :userNickname";
         Query query = session.createQuery(hql);
         query.setParameter("userNickname", nickname);
-        User foundUser = (User) query.getSingleResult();
-        session.getTransaction().commit();
-        session.close();
-        return foundUser;
-
-    }
-
-    @Override
-    public List<User> getAllUsers() {
-        Session session = HibernateUtil.openSession();
-        session.beginTransaction();
-        String hql = "SELECT u FROM User u";
-        Query query = session.createQuery(hql);
-        List<User> results = query.getResultList();
+        List<Post> results = query.getResultList();
         session.getTransaction().commit();
         session.close();
         return results;
     }
 }
+

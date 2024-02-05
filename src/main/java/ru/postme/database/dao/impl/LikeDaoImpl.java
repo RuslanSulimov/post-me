@@ -1,76 +1,77 @@
 package ru.postme.database.dao.impl;
 
 import jakarta.persistence.Query;
-import jakarta.persistence.TypedQuery;
-import jakarta.persistence.criteria.Root;
-import ru.postme.database.dao.UserDao;
-import ru.postme.database.model.User;
-import ru.postme.database.hibernate.HibernateUtil;
 import org.hibernate.Session;
+import ru.postme.database.dao.LikeDao;
+import ru.postme.database.hibernate.HibernateUtil;
+import ru.postme.database.model.Comment;
+import ru.postme.database.model.Like;
+import ru.postme.database.model.Post;
 
 import java.util.List;
 
-public class UserDaoImpl implements UserDao {
+public class LikeDaoImpl implements LikeDao {
     @Override
-    public Long createUser(User user) {
+    public Long createLike(Like like) {
         Session session = HibernateUtil.openSession();
         session.beginTransaction();
-        Long userId = (Long) session.save(user);
+        Long likeId = (Long) session.save(like);
         session.getTransaction().commit();
         session.close();
-        return userId;
+        return likeId;
     }
 
     @Override
-    public void updateUser(User user) {
+    public Like getLikeById(Long id) {
         Session session = HibernateUtil.openSession();
         session.beginTransaction();
-        session.update(user);
+        Like likeById = session.get(Like.class, id);
         session.getTransaction().commit();
         session.close();
+        return likeById;
     }
 
     @Override
-    public User getUserById(Long id) {
+    public void deleteLike(Long id) {
         Session session = HibernateUtil.openSession();
         session.beginTransaction();
-        User userById = session.get(User.class, id);
-        session.getTransaction().commit();
-        session.close();
-        return userById;
-    }
-
-    @Override
-    public void deleteUser(Long id) {
-        Session session = HibernateUtil.openSession();
-        session.beginTransaction();
-        User deletingUser = (User) session.get(User.class, id);
-        session.remove(deletingUser);
+        Like deletingLike = session.get(Like.class, id);
+        session.remove(deletingLike);
         session.getTransaction().commit();
         session.close();
     }
 
     @Override
-    public User getUserByNickname(String nickname) {
+    public List<Like> getAllLikes() {
         Session session = HibernateUtil.openSession();
         session.beginTransaction();
-        String hql = "SELECT u FROM User u WHERE nickname = :userNickname";
+        String hql = "SELECT u FROM Like u";
+        Query query = session.createQuery(hql);
+        List<Like> results = query.getResultList();
+        session.getTransaction().commit();
+        session.close();
+        return results;
+    }
+    @Override
+    public List<Like> getAllUserLikes(String nickname) {
+        Session session = HibernateUtil.openSession();
+        session.beginTransaction();
+        String hql = "FROM Like l WHERE l.user.nickname = :userNickname";
         Query query = session.createQuery(hql);
         query.setParameter("userNickname", nickname);
-        User foundUser = (User) query.getSingleResult();
+        List<Like> results = query.getResultList();
         session.getTransaction().commit();
         session.close();
-        return foundUser;
-
+        return results;
     }
-
     @Override
-    public List<User> getAllUsers() {
+    public List<Like> getAllPostLikes(Long postId) {
         Session session = HibernateUtil.openSession();
         session.beginTransaction();
-        String hql = "SELECT u FROM User u";
+        String hql = "FROM Like l WHERE l.post.id = :postId";
         Query query = session.createQuery(hql);
-        List<User> results = query.getResultList();
+        query.setParameter("postId", postId);
+        List<Like> results = query.getResultList();
         session.getTransaction().commit();
         session.close();
         return results;

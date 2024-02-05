@@ -15,5 +15,9 @@
         <property name="hibernate.format_sql">${post-me.hibernate.connection.format_sql}</property>
 
         <mapping class="ru.postme.database.model.User"/>
+        <mapping class="ru.postme.database.model.Post"/>
+        <mapping class="ru.postme.database.model.Comment"/>
+        <mapping class="ru.postme.database.model.Like"/>
+
     </session-factory>
 </hibernate-configuration>
