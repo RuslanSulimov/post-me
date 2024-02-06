@@ -35,6 +35,6 @@ public class HibernateUtil {
     }
 
     public interface TransactionCallback<T> {
-        T execute(Session session) ;
+        T execute(Session session);
     }
 }

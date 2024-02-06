@@ -3,18 +3,18 @@ package ru.postme.database.model;
 import jakarta.persistence.*;
 
 @Entity
-@Table (name = "LIKE")
+@Table(name = "LIKE")
 public class Like {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
-    @JoinColumn (name = "USER_ID")
+    @JoinColumn(name = "USER_ID")
     private User user;
 
     @ManyToOne
-    @JoinColumn (name = "POST_ID")
+    @JoinColumn(name = "POST_ID")
     private Post post;
 
     public User getUser() {
@@ -40,7 +40,8 @@ public class Like {
     public void setId(Long id) {
         this.id = id;
     }
+
     public String toString() {
-        return "Like id is "+ id + "!";
+        return "Like id is " + id + "!";
     }
 }

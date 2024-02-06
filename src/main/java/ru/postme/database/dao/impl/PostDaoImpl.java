@@ -3,6 +3,7 @@ package ru.postme.database.dao.impl;
 import ru.postme.database.dao.PostDao;
 import ru.postme.database.hibernate.HibernateUtil;
 import ru.postme.database.model.Post;
+
 import java.util.List;
 
 public class PostDaoImpl implements PostDao {
@@ -22,7 +23,7 @@ public class PostDaoImpl implements PostDao {
 
     @Override
     public Post getPostById(Long id) {
-        return  HibernateUtil.executeInTransaction(session -> session.get(Post.class, id));
+        return HibernateUtil.executeInTransaction(session -> session.get(Post.class, id));
     }
 
     @Override
@@ -36,13 +37,14 @@ public class PostDaoImpl implements PostDao {
 
     @Override
     public List<Post> getAllPosts() {
-        return  HibernateUtil.executeInTransaction(session -> session
+        return HibernateUtil.executeInTransaction(session -> session
                 .createQuery("SELECT u FROM Post u")
                 .getResultList());
     }
+
     @Override
     public List<Post> getAllPostsByNickname(String nickname) {
-        return  HibernateUtil.executeInTransaction(session -> session
+        return HibernateUtil.executeInTransaction(session -> session
                 .createQuery("FROM Post p WHERE p.user.nickname = :userNickname")
                 .setParameter("userNickname", nickname)
                 .getResultList());

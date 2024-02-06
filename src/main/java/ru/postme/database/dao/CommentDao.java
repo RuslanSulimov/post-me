@@ -16,5 +16,6 @@ public interface CommentDao {
     List<Comment> getAllComments();
 
     List<Comment> getAllUserComments(String nickname);
+
     List<Comment> getAllPostComments(Long id);
 }

@@ -28,7 +28,7 @@ public class CommentDaoImpl implements CommentDao {
     @Override
     public void deleteComment(Long id) {
         HibernateUtil.executeInTransaction(session -> {
-            Comment deletingComment = (Comment) session.get(Comment.class, id);
+            Comment deletingComment = session.get(Comment.class, id);
             session.remove(deletingComment);
             return null;
         });
@@ -40,6 +40,7 @@ public class CommentDaoImpl implements CommentDao {
                 .createQuery("SELECT u FROM Comment u")
                 .getResultList());
     }
+
     @Override
     public List<Comment> getAllUserComments(String nickname) {
         return HibernateUtil.executeInTransaction(session -> session
@@ -47,6 +48,7 @@ public class CommentDaoImpl implements CommentDao {
                 .setParameter("userNickname", nickname)
                 .getResultList());
     }
+
     @Override
     public List<Comment> getAllPostComments(Long postId) {
         return HibernateUtil.executeInTransaction(session -> session

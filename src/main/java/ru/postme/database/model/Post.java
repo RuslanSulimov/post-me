@@ -8,18 +8,19 @@ import java.util.List;
 @Entity
 @Table(name = "POST")
 public class Post {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     private Long id;
     @Column(name = "CONTENT")
 
     private String content;
-    @Column (name = "CREATE_DATE")
+    @Column(name = "CREATE_DATE")
 
     private Date date;
 
     @ManyToOne
-    @JoinColumn (name = "USER_ID")
+    @JoinColumn(name = "USER_ID")
     private User user;
     @OneToMany(mappedBy = "post")
 
@@ -75,7 +76,8 @@ public class Post {
     public void setUser(User user) {
         this.user = user;
     }
+
     public String toString() {
-        return id + "\n" +user.getNickname() + "\n" + date + "\n" + content;
+        return id + "\n" + user.getNickname() + "\n" + date + "\n" + content;
     }
 }

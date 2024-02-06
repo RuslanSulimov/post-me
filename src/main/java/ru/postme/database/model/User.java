@@ -7,7 +7,8 @@ import java.util.List;
 @Entity
 @Table(name = "USER")
 public class User {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "NICKNAME")
@@ -105,7 +106,8 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
     public String toString() {
-        return id + " " +nickname + " " +firstName + " " +lastName + " " +email + " " + password;
+        return id + " " + nickname + " " + firstName + " " + lastName + " " + email + " " + password;
     }
 }

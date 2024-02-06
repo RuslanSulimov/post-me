@@ -1,8 +1,9 @@
 package ru.postme.database.dao.impl;
 
 import ru.postme.database.dao.UserDao;
-import ru.postme.database.model.User;
 import ru.postme.database.hibernate.HibernateUtil;
+import ru.postme.database.model.User;
+
 import java.util.List;
 
 public class UserDaoImpl implements UserDao {
@@ -35,10 +36,10 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User getUserByNickname(String nickname) {
-       return (User) HibernateUtil.executeInTransaction(session -> session
-               .createQuery("SELECT u FROM User u WHERE nickname = :userNickname")
-               .setParameter("userNickname", nickname)
-               .getSingleResult());
+        return (User) HibernateUtil.executeInTransaction(session -> session
+                .createQuery("SELECT u FROM User u WHERE nickname = :userNickname")
+                .setParameter("userNickname", nickname)
+                .getSingleResult());
 
     }
 

@@ -32,6 +32,7 @@ public class LikeDaoImpl implements LikeDao {
                 .createQuery("SELECT u FROM Like u")
                 .getResultList());
     }
+
     @Override
     public List<Like> getAllUserLikes(String nickname) {
         return HibernateUtil.executeInTransaction(session -> session
@@ -39,6 +40,7 @@ public class LikeDaoImpl implements LikeDao {
                 .setParameter("userNickname", nickname)
                 .getResultList());
     }
+
     @Override
     public List<Like> getAllPostLikes(Long postId) {
         return HibernateUtil.executeInTransaction(session -> session
