@@ -1,11 +1,13 @@
 package ru.postme.database.dao.impl;
 
+import org.springframework.stereotype.Repository;
 import ru.postme.database.dao.UserDao;
 import ru.postme.database.hibernate.HibernateUtil;
 import ru.postme.database.model.User;
 
 import java.util.List;
 
+@Repository
 public class UserDaoImpl implements UserDao {
     @Override
     public Long createUser(User user) {

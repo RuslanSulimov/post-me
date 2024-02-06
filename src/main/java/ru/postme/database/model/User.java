@@ -1,5 +1,6 @@
 package ru.postme.database.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -26,12 +27,15 @@ public class User {
     @Column(name = "PASSWORD")
     private String password;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "user")
     private List<Post> posts;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "user")
     private List<Comment> comments;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "user")
     private List<Like> likes;
 
