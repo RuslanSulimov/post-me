@@ -1,11 +1,13 @@
 package ru.postme.database.dao.impl;
 
+import org.springframework.stereotype.Repository;
 import ru.postme.database.dao.LikeDao;
 import ru.postme.database.hibernate.HibernateUtil;
 import ru.postme.database.model.Like;
 
 import java.util.List;
 
+@Repository
 public class LikeDaoImpl implements LikeDao {
     @Override
     public Long createLike(Like like) {

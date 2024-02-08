@@ -1,11 +1,13 @@
 package ru.postme.database.dao.impl;
 
+import org.springframework.stereotype.Repository;
 import ru.postme.database.dao.PostDao;
 import ru.postme.database.hibernate.HibernateUtil;
 import ru.postme.database.model.Post;
 
 import java.util.List;
 
+@Repository
 public class PostDaoImpl implements PostDao {
 
     @Override

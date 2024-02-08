@@ -9,14 +9,11 @@ import java.util.Date;
 public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private Long id;
 
     @Column(name = "CONTENT")
-
     private String content;
     @Column(name = "CREATE_DATE")
-
     private Date date;
 
     @ManyToOne

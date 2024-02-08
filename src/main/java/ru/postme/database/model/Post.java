@@ -1,5 +1,6 @@
 package ru.postme.database.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.Date;
@@ -10,23 +11,20 @@ import java.util.List;
 public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private Long id;
     @Column(name = "CONTENT")
-
     private String content;
     @Column(name = "CREATE_DATE")
-
     private Date date;
 
     @ManyToOne
     @JoinColumn(name = "USER_ID")
     private User user;
+    @JsonIgnore
     @OneToMany(mappedBy = "post")
-
     private List<Comment> comments;
+    @JsonIgnore
     @OneToMany(mappedBy = "post")
-
     private List<Like> likes;
 
     public List<Like> getLikes() {

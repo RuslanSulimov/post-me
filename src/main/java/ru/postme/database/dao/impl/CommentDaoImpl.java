@@ -1,11 +1,13 @@
 package ru.postme.database.dao.impl;
 
+import org.springframework.stereotype.Repository;
 import ru.postme.database.dao.CommentDao;
 import ru.postme.database.hibernate.HibernateUtil;
 import ru.postme.database.model.Comment;
 
 import java.util.List;
 
+@Repository
 public class CommentDaoImpl implements CommentDao {
     @Override
     public Long createComment(Comment comment) {
